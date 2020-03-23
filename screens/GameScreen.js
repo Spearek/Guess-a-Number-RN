@@ -1,7 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, StyleSheet, Button, Alert } from 'react-native';
+import { View, Text, StyleSheet, Alert } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+
 import NumberContainer from '../components/numberContainer';
 import Card from '../components/Card';
+import MainButton from '../components/MainButton';
+
+
 
 const generateRandomBetween = (min, max, exclude) => {
     min = Math.ceil(min);
@@ -15,30 +20,30 @@ const generateRandomBetween = (min, max, exclude) => {
 }
 
 const GameScreen = props => {
-    
+
     const [currentGuess, setCurrentGuess] = useState(generateRandomBetween(1, 100, props.userNumber));
 
-    const [rounds,setRounds] = useState(0);
+    const [rounds, setRounds] = useState(0);
     const currentLow = useRef(1);
     const currentHigh = useRef(100);
 
-    const {userNumber, onGameOver} = props;
+    const { userNumber, onGameOver } = props;
 
-    useEffect(()=>{
+    useEffect(() => {
         if (currentGuess === userNumber) {
             onGameOver(rounds);
         }
-    },[currentGuess, userNumber, onGameOver])
+    }, [currentGuess, userNumber, onGameOver])
 
     const nextGuessHandler = direction => {
         if (
             (direction === 'lower' && currentGuess < props.userNumber) ||
             (direction === 'greater' && currentGuess > props.userNumber)
-            ) {
-                Alert.alert("Don't lie!", 'You know that this is wrong...', [
-                    { text: 'Sorry!', style: 'cancel' }
-                  ]);
-                  return;
+        ) {
+            Alert.alert("Don't lie!", 'You know that this is wrong...', [
+                { text: 'Sorry!', style: 'cancel' }
+            ]);
+            return;
         }
         if (direction === 'lower') {
             currentHigh.current = currentGuess;
@@ -57,8 +62,12 @@ const GameScreen = props => {
             <Text>Oponent's Guess</Text>
             <NumberContainer>{currentGuess}</NumberContainer>
             <Card style={styles.btnContainer}>
-                <Button title="LOWER" onPress={nextGuessHandler.bind(this,'lower')} />
-                <Button title="GREATER" onPress={nextGuessHandler.bind(this,'greater')} />
+                <MainButton onPress={nextGuessHandler.bind(this, 'lower')}>
+                    <Ionicons name="md-remove" size={24} color="white" />
+                </MainButton>
+                <MainButton onPress={nextGuessHandler.bind(this, 'greater')}>
+                    <Ionicons name="md-add" size={24} color="white" />
+                </MainButton>
             </Card>
         </View>
     )
@@ -74,8 +83,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-around',
         marginTop: 20,
-        width: 300,
-        maxWidth: '80%'
+        width: 400,
+        maxWidth: '90%'
     }
 });
 
