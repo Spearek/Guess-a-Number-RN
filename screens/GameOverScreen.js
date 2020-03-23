@@ -2,25 +2,27 @@ import React from 'react';
 import { View, Text, StyleSheet, Button, Image } from 'react-native';
 
 import BodyText from '../components/BodyText';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
 
 const GameOverScreen = props => {
 
     return (
         <View style={styles.screen}>
-            <BodyText>The Game is Oven hahaha, you get it? OVEN! ;DDD</BodyText>
+            <BodyText style={{fontFamily:'open-sans-bold', fontSize: 16}}>The Game is Over!</BodyText>
             <View style={styles.imageContainer}>
                 <Image
                     //fadeDuration={300}
                     // source={require('../assets/success.png')}
-                    source={{uri: 'https://images.unsplash.com/photo-1554629947-334ff61d85dc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=676&q=80'}}
+                    source={{ uri: 'https://images.unsplash.com/photo-1554629947-334ff61d85dc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=676&q=80' }}
                     style={styles.image}
                     resizeMode='cover'
                 />
             </View>
-
-            <BodyText>Number of rounds: {props.roundsNumber}</BodyText>
-            <BodyText>Number was: {props.userNumber}</BodyText>
+            <View style={styles.summaryContainer}>
+                <BodyText style={styles.resultText}>Your phone needed <Text style={styles.highlight}>{props.roundsNumber}</Text> rounds to guess the number <Text style={styles.highlight}>{props.userNumber}</Text> </BodyText>
+            </View>
             <Button title="New Game" onPress={props.onRestart} />
+
         </View>
     );
 };
@@ -43,6 +45,18 @@ const styles = StyleSheet.create({
     image: {
         width: '100%',
         height: '100%'
+    },
+    resultText: {
+        textAlign: "center",
+        fontSize: 18
+    },
+    highlight: {
+        color: Colors.primary,
+        fontFamily: 'open-sans-bold'
+    },
+    summaryContainer: {
+        marginVertical: 10,
+        marginHorizontal: 30,
     }
 
 })
