@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Button, Image } from 'react-native';
+import { View, Text, StyleSheet, Button, Image, Dimensions } from 'react-native';
 
 import BodyText from '../components/BodyText';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
@@ -38,13 +38,13 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     imageContainer: {
-        width: 300,
-        height: 300,
-        borderRadius: 150,
+        width: Dimensions.get('window').width * 0.7,
+        height: Dimensions.get('window').width * 0.7,
+        borderRadius: Dimensions.get('window').width * 0.7 / 2,
         borderWidth: 3,
         borderBottomColor: 'black',
         overflow: 'hidden',
-        marginVertical: 30
+        marginVertical: Dimensions.get('window').height / 20
     },
     image: {
         width: '100%',
@@ -52,14 +52,14 @@ const styles = StyleSheet.create({
     },
     resultText: {
         textAlign: "center",
-        fontSize: 18
+        fontSize: Dimensions.get('window').height < 400? 16 : 20
     },
     highlight: {
         color: Colors.primary,
         fontFamily: 'open-sans-bold'
     },
     summaryContainer: {
-        marginVertical: 10,
+        marginVertical: Dimensions.get('window').height / 40,
         marginHorizontal: 30,
     }
 
